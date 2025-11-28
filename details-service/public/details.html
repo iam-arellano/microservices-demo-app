@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Product Details</title>
+    <style>
+        body { font-family: Arial; padding: 20px; }
+        .box {
+            max-width: 500px;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 10px;
+            margin: auto;
+        }
+        a {
+            margin-top: 20px;
+            display: block;
+            text-align: center;
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+
+<div class="box">
+    <h1 id="name"></h1>
+    <p id="desc"></p>
+
+    <a href="http://localhost:3002/">Back to Products</a>
+</div>
+
+<script>
+const url = new URL(window.location.href);
+const id = url.searchParams.get("id");
+
+fetch(`http://localhost:3003/api/details?id=${id}`)
+  .then(res => res.json())
+  .then(data => {
+    document.getElementById("name").innerText = data?.name || "Not Found";
+    document.getElementById("desc").innerText = data?.desc || "";
+  });
+</script>
+
+</body>
+</html>

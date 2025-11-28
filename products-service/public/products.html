@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Products</title>
+    <style>
+        body { font-family: Arial; padding: 20px; }
+        .card {
+            padding: 15px;
+            margin: 10px;
+            border-radius: 8px;
+            background: #f4f4f4;
+        }
+        a {
+            display: block;
+            color: blue;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Products</h1>
+
+<div id="products"></div>
+
+<script>
+fetch("http://localhost:3002/api/products")
+  .then(res => res.json())
+  .then(data => {
+    const container = document.getElementById("products");
+
+    data.forEach(p => {
+      container.innerHTML += `
+        <div class="card">
+            <h3>${p.name}</h3>
+            <p>₱${p.price}</p>
+            <a href="http://localhost:3003/?id=1">View Details</a>
+        </div>
+      `;
+    });
+  });
+</script>
+
+</body>
+</html>
