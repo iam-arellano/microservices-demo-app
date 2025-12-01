@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+
+  home:
+   build: ./home-service
+   container_name: c_microsvc_home
+   ports:
+    - "3001:3001"
+   networks:
+    - microsvc_network
+   depends_on:
+    - product
+
+  product:
+   build: ./products-service
+   container_name: c_microsvc_product
+   ports:
+    - "3002:3002"
+   networks:
+    - microsvc_network
+   depends_on:
+    - details
+
+  details:
+   build: ./details-service
+   container_name: c_microsvc_details
+   ports:
+    - "3003:3003"
+   networks:
+    - microsvc_network
+
+
+networks:
+  microsvc_network:
+
