@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-product-svc
+  labels:
+    app: app-product
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: app-product
+  template:
+    metadata:
+      labels:
+        app: app-product
+    spec:
+      containers:
+      - name: c-product-svc
+        image: raemondarellano/microsvc-productservice:latest
+        ports:
+        - containerPort: 3002 
+
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-product-svc
+spec:
+  selector:
+    app: app-product
+  type: LoadBalancer
+  ports:
+    - port: 3002 
+      targetPort: 3002 
+#      nodePort: 30012

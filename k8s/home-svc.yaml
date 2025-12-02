@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-home-svc
+  labels:
+    app: app-home
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: app-home
+  template:
+    metadata:
+      labels:
+        app: app-home
+    spec:
+      containers:
+      - name: c-home-svc
+        image: raemondarellano/microsvc-homeservice:latest
+        ports:
+        - containerPort: 3001 
+
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-home-svc
+spec:
+  selector:
+    app: app-home
+  type: LoadBalancer
+  ports:
+    - port: 3001 
+      targetPort: 3001 
+#      nodePort: 30012
